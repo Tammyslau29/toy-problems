@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shipping Calculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="inputContainer">
+        <input type="text" class="weightInput" onkeydown="validateKeydown(event)" placeholder="Enter Package Weight In Pounds">
+        <div class="validateKey"></div>
+        <form action="">
+            <input type="radio" name="day" value="5" class="shippingRadioBtn" checked> 5 Day Shipping<br>
+            <input type="radio" name="day" value="3" class="shippingRadioBtn"> 3 Day Shipping<br>
+            <input type="radio" name="day" value="2" class="shippingRadioBtn"> 2 Day Shipping
+        </form>
+        <button type="button" class="calculate">Calculate</button>
+    </div>
+    <div class="shippingSpecs">
+        <div class="weight">
+            <ul value="circle">
+                <li><b>Weight:</b></li>
+                    <ul value="square">
+                        <li class="weightOunces"></li>
+                        <li class="weightPounds"></li>
+                    </ul>
+            </ul>
+        </div>
+        <div class="shipping">
+            <ul value="circle">
+                <li><b>Shipping:</b></li>
+                    <ul value="square">
+                        <li class="shippingType"></li>
+                        <li class="shippingDepart"></li>
+                        <li class="shippingArrive"></li>
+                    </ul>
+            </ul>
+        </div>
+        <div class="cost">
+            <ul value="circle">
+                <li class="cost"></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
