@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <title>Multiply Divider</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>
-//        Write a JavaScript program to calculate multiplication and division of two numbers (input from user).
-    </script>
 </head>
 <body>
     <div class="inputFormBody">
@@ -14,10 +11,33 @@
         <input class="secondNumber" placeholder="Enter Second Number">
     </div>
     <div class="submitButtonHolder">
-        <button class="calcuateBtn" type="calculate">Calculate</button>
+        <button class="multiplyBtn" type="button" onclick="handleCalc('multiply')">Multiply</button>
+        <button class="divideBtn" type="button" onclick="handleCalc('divide')">Divide</button>
     </div>
-    <div class="resultContainer">
-
-    </div>
+    <div class="resultContainer"></div>
 </body>
+    <script>
+        //        Write a JavaScript program to calculate multiplication and division of two numbers (input from user).
+        function grabValue(){
+            var firstNumber = $(".firstNumber").val();
+            var secondNumber = $(".secondNumber").val();
+            return [firstNumber, secondNumber];
+        }
+        function handleCalc(operand){
+            var operatorArray = grabValue();
+            var firstNumber = $(".firstNumber").val("");
+            var secondNumber = $(".secondNumber").val("");
+            var result;
+            if(operand === "multiply"){
+               result = operatorArray[0] * operatorArray[1]
+            }
+            else if(operand === "divide"){
+                result = operatorArray[0] / operatorArray[1]
+            }
+            displayResult(result);
+        }
+        function displayResult(result){
+            $(".resultContainer").text("Your Result Is: " + result);
+        }
+    </script>
 </html>
