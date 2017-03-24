@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Guessing Game</title>
+    <script>
+//        Write a JavaScript program where the program takes a random integer between 1 to 10, the user is then prompted to input a guess number. If the user input matches with guess number, the program will display a message "Good Work" otherwise display a message "Not matched".
+        $(document).ready(function(){
+            random_int = generate_random_int();
+            display_guesses();
+            $("#restart_button").hide();
+        });
+        var random_int = null;
+        var guess_counter = 0;
+        function generate_random_int(){
+          return Math.floor((Math.random() * 10)+ 1);
+        }
+        function grab_user_input(){
+            var user_input = $("#user_input").val();
+            return user_input;
+        }
+        function display_guesses(){
+            $(".guessing_status").text("You've made: " + guess_counter  +"/5 guesses");
+        }
+        function handle_guesses_left(){
+            check_guesses_left();
+            display_guesses();
+        }
+        function check_guesses_left(){
+            if(guess_counter == 5){
+                $("#submit_button").text("Game Over");
+                $("#submit_button").unbind();
+                $(".win_status").text("I'm sorry the game is over!");
+                $("#restart_button").show();
+            }else{
+                guess_counter++;
+            }
+        }
+        function display_previous_guess(previous_guess){
+            $(".previous_guess").text("Previously, you've guessed: " + previous_guess);
+        }
+        function compare_user_with_random_number(){
+            var user_guess = grab_user_input();
+            display_previous_guess(user_guess);
+            if(user_guess == random_int){
+                $("#restart_button").show();
+                $(".win_status").text("Congratulations! You've guessed the number");
+            }
+            else if(user_guess < random_int){
+                $(".win_status").text("Your guess is too low..please try again");
+            }
+            else if(user_guess > random_int){
+                $(".win_status").text("Your guess is too high..please try again");
+            }
+            handle_guesses_left();
+            $("#user_input").val("");
+        }
+        function restart_game(){
+            guess_counter = 0;
+            $("#restart_button").hide();
+            $("#submit_button").bind();
+            $(".previous_guess").text("");
+            $("#submit_button").text("Submit Guess");
+            $(".win_status").text("");
+            random_int = generate_random_int();
+            display_guesses();
+        }
+    </script>
+</head>
+<body>
+    <div class="previous_guess"></div>
+    <input id="user_input" type="text" placeholder="Enter A Number Between 1-10">
+    <button type="button" id="submit_button" onclick="compare_user_with_random_number()">Submit Guess</button>
+    <button type="button" id="restart_button" onclick="restart_game()">Restart Game</button>
+    <div class="guessing_status"></div>
+    <div class="win_status"></div>
+</body>
+</html>
