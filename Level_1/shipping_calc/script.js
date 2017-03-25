@@ -2,17 +2,24 @@
  * Created by tammyslau on 3/24/17.
  */
 $(document).ready(function(){
-    applyEventHandlers()
+    applyEventHandlers();
     changeShippingType();
-})
+});
 var shipping_time = "five";
 function applyEventHandlers(){
     $(".shippingRadioBtn").on("click", function(){
         changeShippingType()
     });
     $(".calculate").on("click", function(){
-        display_shipping()
+        grabWeightAndTime()
+    });
+    $(".clearForm").on("click", function(){
+        clearForm();
     })
+}
+function clearForm(){
+    $(".weightInput").val("");
+    $("#defaultChecked").prop("checked", true);
 }
 function validateKeydown(event){
     var charCode = "" + event.keyCode;
@@ -26,69 +33,42 @@ function validateKeydown(event){
 }
 function changeShippingType(){
     shipping_time = $(".shippingRadioBtn:checked").val();
-    $(".shippingType").text("Shipping Type: " + shipping_time + " day");
+    $(".shippingType").text(shipping_time + " days");
 }
 function grabWeightAndTime(){
     var weightToPounds = $(".weightInput").val();
     var weightToOunces = $(".weightInput").val() * 16;
-    calculateShipping(weightToOunces, shipping_time)
+    displayShipping(weightToPounds, weightToOunces)
 }
 function getDate(shipping_day){
-    var weekdayArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     var today = new Date();
-    var day = today.getDay();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
-    switch (day){
-        case 0:
-            day = weekdayArray[0];
-            break;
-        case 1:
-            day = weekdayArray[1];
-            break;
-        case 2:
-            day = weekdayArray[2];
-            break;
-        case 3:
-            day = weekdayArray[3];
-            break;
-        case 4:
-            day = weekdayArray[4];
-            break;
-        case 5:
-            day = weekdayArray[5];
-            break;
-        case 6:
-            day = weekdayArray[6];
-            break;
-    }
-    today = day + ", " + mm + "/" + dd + "/" + yyyy;
+    var day = today.getDate();
     if(shipping_day){
         shipping_day = parseInt(shipping_day);
-        parseInt(dd);
-        today.setDate(4)
-        if(day == "Sunday"){
-            day = "Monday"
+        day = parseInt(day);
+        var date = new Date();
+        date.setDate(day + shipping_day);
+        if(date.getDay() === 0) {
+            date.setDate(day + shipping_day + 1);
         }
-        today = day + ", " + mm + "/" + dd + "/" + yyyy
+        today = date
     }
-    return today
+    return today.toDateString()
 }
-function calculateShipping(weight, time){
+function calculateShipping(weight){
     var shippingSpecs = {
         arrivalDate: null,
         weight: null,
         cost:null
     };
-    shippingSpecs.arrivalDate = getDate(shipping_time)
+    shippingSpecs.arrivalDate = getDate(shipping_time);
     shippingSpecs.weight = weight;
     if(weight > 20 && weight < 32){
-        var weightResult = weight * 0.10
-        if(time == "three"){
+        var weightResult = weight * 0.10;
+        if(shipping_time == "3"){
             shippingSpecs.cost = "$" + weightResult * 1.5
         }
-        else if(time == "two"){
+        else if(shipping_time == "2"){
             shippingSpecs.cost = "$" + weightResult * 2
         } else{
             shippingSpecs.cost = "$" + weightResult
@@ -97,10 +77,10 @@ function calculateShipping(weight, time){
     }
     else if(weight < 20){
         var weightResult = weight * 0.02
-        if(time == "three"){;
+        if(shipping_time == "3"){;
             shippingSpecs.cost = "$" + weightResult * 1.5
         }
-        else if(time == "two"){
+        else if(shipping_time == "2"){
             shippingSpecs.cost = "$" + weightResult * 2
         } else{
             shippingSpecs.cost = "$" + weightResult
@@ -108,13 +88,23 @@ function calculateShipping(weight, time){
     }
     else if(weight > 32){
         var weightResult = weight * 0.20;
-        if(time == "three"){
+        if(shipping_time == "3"){
             shippingSpecs.cost = "$" + weightResult * 1.5
         }
-        else if(time == "two"){
+        else if(shipping_time == "2"){
             shippingSpecs.cost = "$" + weightResult * 2
         } else{
             shippingSpecs.cost = "$" + weightResult
         }
     }
+    return shippingSpecs
+}
+function displayShipping(weightToPounds, weightToOunces){
+    clearForm();
+    var shippingSpecsObj = calculateShipping(weightToOunces);
+    $(".weightOunces").text(shippingSpecsObj.weight);
+    $(".weightPounds").text(weightToPounds + " Pounds");
+    $(".shippingDepart").text(getDate());
+    $(".shippingArrive").text(shippingSpecsObj.arrivalDate);
+    $(".cost").text("Cost: " + shippingSpecsObj.cost);
 }

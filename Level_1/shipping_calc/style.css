@@ -1,3 +1,54 @@
-.validateKey{
-    color:red;
+body{
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'Nunito', sans-serif;
 }
+.inputContainer{
+    flex: 1 1 50%;
+}
+.shippingSpecs{
+    color: #2883cc;
+    flex: 1 1 49%;
+}
+.validateKey{
+    color: #4f9cca;
+}
+.weightInput{
+    width: 80%;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid #4f9cca;
+    font-size: 1.1em;
+    padding-left: 5px;
+    color: #00BCD4;
+}
+.shippingRadioBtn{
+    margin: 10px;
+}
+button{
+    width: 100px;
+    height: 60px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    color: white;
+}
+.calculate{
+    background-color: cornflowerblue;
+}
+.clearForm{
+    border: 1px solid cornflowerblue;
+    background-color: transparent;
+    color: #00BCD4;
+}
+.cost, li{
+    font-weight: bold;
+}
+.specs{
+    list-style-type: none;
+}
+.specDetails{
+    display: inline;
+    font-weight: 100;
+}
+

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Shipping Calculator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200" rel="stylesheet">
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,35 +13,49 @@
         <input type="text" class="weightInput" onkeydown="validateKeydown(event)" placeholder="Enter Package Weight In Pounds">
         <div class="validateKey"></div>
         <form action="">
-            <input type="radio" name="day" value="5" class="shippingRadioBtn" checked> 5 Day Shipping<br>
+            <input type="radio" name="day" value="5" class="shippingRadioBtn" id="defaultChecked" checked> 5 Day Shipping<br>
             <input type="radio" name="day" value="3" class="shippingRadioBtn"> 3 Day Shipping<br>
             <input type="radio" name="day" value="2" class="shippingRadioBtn"> 2 Day Shipping
         </form>
         <button type="button" class="calculate">Calculate</button>
+        <button type="button" class="clearForm">Clear</button>
     </div>
     <div class="shippingSpecs">
         <div class="weight">
-            <ul value="circle">
+            <ul class="specs">
                 <li><b>Weight:</b></li>
-                    <ul value="square">
-                        <li class="weightOunces"></li>
-                        <li class="weightPounds"></li>
+                    <ul class="specs">
+                        <li>Weight In Ounces:
+                            <div class="weightOunces specDetails"></div>
+                        </li>
+                        <li>
+                            Weight In Pounds:
+                            <div class="weightPounds specDetails"></div>
+                        </li>
                     </ul>
             </ul>
         </div>
         <div class="shipping">
-            <ul value="circle">
+            <ul class="specs">
                 <li><b>Shipping:</b></li>
-                    <ul value="square">
-                        <li class="shippingType"></li>
-                        <li class="shippingDepart"></li>
-                        <li class="shippingArrive"></li>
+                    <ul class="specs">
+                        <li>Shipping Time:
+                            <div class="shippingType specDetails"></div>
+                        </li>
+                        <li> Departing Day:
+                            <div class="shippingDepart specDetails"></div>
+                        </li>
+                        <li> Arrival Day:
+                            <div class="shippingArrive specDetails"></div>
+                        </li>
                     </ul>
             </ul>
         </div>
         <div class="cost">
-            <ul value="circle">
-                <li class="cost"></li>
+            <ul class="specs">
+                <li>Cost:
+                    <div class="cost specDetails"></div>
+                </li>
             </ul>
         </div>
     </div>
