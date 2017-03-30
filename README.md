@@ -7,4 +7,5 @@ Level 1
 -  Guessing Game
 -  Multiply and Divide Calculator
 -  Reverse Number Function
-- Shipping Calculator
+-  Shipping Calculator
+-  Product Except Itself Function
