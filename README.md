@@ -9,3 +9,4 @@ Level 1
 -  Reverse Number Function
 -  Shipping Calculator
 -  Product Except Itself Function
+-  Sum Subsets
